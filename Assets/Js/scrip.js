@@ -109,7 +109,7 @@ const iniciarsesion = async () => {
     const querySnapshot = await iniciarSesionUsuario(nombre, contrasena);
     if (!querySnapshot.empty) {
       console.log("Inicio de sesión exitoso");
-      window.location.href = "administracion.html";
+      window.location.href = "Administracion.html";
     } else {
       console.log("Nombre o contraseña incorrectos");
     }

@@ -12,12 +12,21 @@ document.addEventListener("DOMContentLoaded", async () => {
     return;
   }
 
-  // Opcional: Cargar datos existentes para mostrar los valores previos
-  // const semanaData = await obtenerSemanaPorId(semanaId);
-  // if (semanaData && semanaData[dia]) {
-  //   document.getElementById("horas_lolo").value = semanaData[dia].Horas_lolo;
-  //   document.getElementById("horas_limpiesa").value = semanaData[dia].Horas_limpiesa;
-  // }
+  // Cargar datos existentes para mostrar los valores previos
+  try {
+    const semanaData = await obtenerSemanaPorId(semanaId);
+    if (semanaData && semanaData[dia]) {
+      const diaData = semanaData[dia];
+      document.getElementById("horas_lolo").value = diaData.Horas_lolo || 0;
+      document.getElementById("horas_limpiesa").value = diaData.Horas_limpiesa || 0;
+      document.getElementById("pago_lolo").value = diaData.Pago_lolo || 0;
+      document.getElementById("pago_limpiesa").value = diaData.Pago_limpiesa || 0;
+      document.getElementById("total").value = diaData.Total || 0;
+      document.getElementById("procedimiento").value = diaData.Procedimiento || "";
+    }
+  } catch (error) {
+    console.error("Error al cargar los datos del día:", error);
+  }
 
   // Botón Calcular
   const btnCalcular = document.getElementById("btn-calcular");
