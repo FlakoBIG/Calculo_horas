@@ -47,8 +47,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             <td>${semanaData[dia].Horas_limpiesa}</td>
             <td>$${semanaData[dia].Pago_lolo}</td>
             <td>$${semanaData[dia].Pago_limpiesa}</td>
-            <td style="white-space: pre-line;">${semanaData[dia].Procedimiento.replace(/\n/g, "<br>")}</td>
-
+            <td style="white-space: pre-line; max-width: 200px; overflow-wrap: break-word;">${semanaData[dia].Procedimiento.replace(/\n/g, "<br>")}</td>
             <td>$${semanaData[dia].Total}</td>
           </tr>
         `;

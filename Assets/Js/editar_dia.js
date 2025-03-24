@@ -55,10 +55,10 @@ document.addEventListener("DOMContentLoaded", async () => {
     const procedimiento =
 `Conversión Lolo: ${tiempoLolo} = ${horasLoloDecimal.toFixed(2)} horas
 Operación Lolo: 90 x ${horasLoloDecimal.toFixed(2)} = ${pagoLolo.toFixed(2)}
-------------------------------------
+--------------------------------
 Conversión Limpieza: ${tiempoLimpieza} = ${horasLimpiezaDecimal.toFixed(2)} horas
 Operación Limpieza: 200 x ${horasLimpiezaDecimal.toFixed(2)} = ${pagoLimpieza.toFixed(2)}
-------------------------------------
+--------------------------------
 Suma Total: ${pagoLolo.toFixed(2)} + ${pagoLimpieza.toFixed(2)} = ${total.toFixed(2)}`;
 
     document.getElementById("pago_lolo").value = pagoLolo.toFixed(2);
