@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   const semanaId = urlParams.get("semanaId");
   const container = document.getElementById("detalle-semana-admin");
 
-  if (!semanaId) {
+  if (!semanaId) {zzs
     container.textContent = "No se proporcionó el ID de la semana.";
     return;
   }

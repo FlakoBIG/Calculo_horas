@@ -88,11 +88,12 @@ const registrarSemanaFirebase = () => {
   Agregar_Semana(semana)
     .then(() => {
       console.log("Semana registrada con éxito");
-      // Recargamos la página
       window.location.reload();
     })
     .catch((error) => {
       console.log("Ocurrió un error al registrar la semana: " + error);
+      btnAgregarSemana.disabled = false; // Reactiva el botón si hay error
+      btnAgregarSemana.innerHTML = "Agregar Semana"; // Restaura el texto del botón
     });
 };
 
