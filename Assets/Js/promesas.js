@@ -19,24 +19,6 @@ export const Agregar_Semana = async (semana) => {
   }
 };
 
-export const Ver_Semanas = async () => {
-  const documentos = collection(db, "Semana");
-  try {
-    const querySnap = await getDocs(documentos);
-    console.log("Snapshot de semanas:", querySnap);
-    let listado_Semanas = [];
-
-    querySnap.forEach((doc) => {
-      listado_Semanas.push({ ...doc.data(), id: doc.id });
-    });
-    console.log("Listado de semanas:", listado_Semanas);
-    return listado_Semanas;
-  } catch (error) {
-    console.log("Error al obtener semanas:", error);
-    return [];
-  }
-};
-
 export const iniciarSesionUsuario = async (nombre, contrasena) => {
   console.log("Intentando iniciar sesión para:", nombre);
   // Referencia a la colección "cuenta"
@@ -58,6 +40,24 @@ export const iniciarSesionUsuario = async (nombre, contrasena) => {
     return querySnapshot; // Retornamos el snapshot para evaluarlo después
   } catch (error) {
     console.log("Error en la consulta de inicio de sesión:", error);
+    throw error;
+  }
+};
+
+export const listarSemanas = async () => {
+  try {
+    const semanaRef = collection(db, "Semana");
+    const querySnapshot = await getDocs(semanaRef);
+    const semanas = [];
+
+    // Guardamos en un arreglo cada documento: { id, data }
+    querySnapshot.forEach((doc) => {
+      semanas.push({ id: doc.id, data: doc.data() });
+    });
+
+    return semanas;
+  } catch (error) {
+    console.error("Error al listar las semanas:", error);
     throw error;
   }
 };

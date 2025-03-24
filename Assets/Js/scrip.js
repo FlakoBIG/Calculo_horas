@@ -1,4 +1,4 @@
-import { Agregar_Semana, iniciarSesionUsuario, Ver_Semanas } from "./promesas.js";
+import { Agregar_Semana, iniciarSesionUsuario,listarSemanas} from "./promesas.js";
 
 console.log("scrip.js cargado");
 
@@ -14,6 +14,7 @@ document.addEventListener("DOMContentLoaded", () => {
   if (btnAgregarSemana) {
     btnAgregarSemana.addEventListener("click", registrarSemanaFirebase);
   }
+  cargarSemanas();
 });
 
 const registrarSemanaFirebase = () => {
@@ -24,7 +25,7 @@ const registrarSemanaFirebase = () => {
       Horas_limpiesa: 0,
       Pago_lolo: 0,
       Pago_limpiesa: 0,
-      Procedimiento: 0,
+      Procedimiento: "",
       Total: 0
     },
     Martes: {
@@ -32,7 +33,7 @@ const registrarSemanaFirebase = () => {
       Horas_limpiesa: 0,
       Pago_lolo: 0,
       Pago_limpiesa: 0,
-      Procedimiento: 0,
+      Procedimiento: "",
       Total: 0
     },
     Miercoles: {
@@ -40,7 +41,7 @@ const registrarSemanaFirebase = () => {
       Horas_limpiesa: 0,
       Pago_lolo: 0,
       Pago_limpiesa: 0,
-      Procedimiento: 0,
+      Procedimiento: "",
       Total: 0
     },
     Jueves: {
@@ -48,7 +49,7 @@ const registrarSemanaFirebase = () => {
       Horas_limpiesa: 0,
       Pago_lolo: 0,
       Pago_limpiesa: 0,
-      Procedimiento: 0,
+      Procedimiento: "",
       Total: 0
     },
     Viernes: {
@@ -56,7 +57,7 @@ const registrarSemanaFirebase = () => {
       Horas_limpiesa: 0,
       Pago_lolo: 0,
       Pago_limpiesa: 0,
-      Procedimiento: 0,
+      Procedimiento: "",
       Total: 0
     },
     Sabado: {
@@ -64,7 +65,7 @@ const registrarSemanaFirebase = () => {
       Horas_limpiesa: 0,
       Pago_lolo: 0,
       Pago_limpiesa: 0,
-      Procedimiento: 0,
+      Procedimiento: "",
       Total: 0
     },
     Domingo: {
@@ -72,7 +73,7 @@ const registrarSemanaFirebase = () => {
       Horas_limpiesa: 0,
       Pago_lolo: 0,
       Pago_limpiesa: 0,
-      Procedimiento: 0,
+      Procedimiento: "",
       Total: 0
     },
     Total_Semanal: 0
@@ -82,6 +83,7 @@ const registrarSemanaFirebase = () => {
   Agregar_Semana(semana)
     .then(() => {
       console.log("Semana registrada con éxito");
+      window.location.reload();
     })
     .catch((error) => {
       console.log("Ocurrió un error al registrar la semana: " + error);
@@ -114,5 +116,25 @@ const iniciarsesion = async () => {
     }
   } catch (error) {
     console.log("Error al iniciar sesión:", error);
+  }
+};
+
+const cargarSemanas = async () => {
+  try {
+    const listaContainer = document.getElementById('lista-semanas');
+    // Obtener las semanas desde Firebase usando la función importada
+    const semanas = await listarSemanas();
+    listaContainer.innerHTML = "";
+
+    semanas.forEach(semana => {
+      const { id, data } = semana;
+      const totalSemanal = data.Total_Semanal;
+      const semanaElem = document.createElement('div');
+      // Formato: "Semana 1   $0"
+      semanaElem.textContent = `Semana ${id}   $${totalSemanal}`;
+      listaContainer.appendChild(semanaElem);
+    });
+  } catch (error) {
+    console.error("Error al cargar las semanas:", error);
   }
 };
