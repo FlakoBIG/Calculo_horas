@@ -72,21 +72,22 @@ const registrarSemanaFirebase = () => {
   // Llamada a la función que inserta la semana en Firebase
   registrarSemana(semana)
     .then(() => {
-      alert("Semana registrada con éxito");
+        console.log("Semana registrada con éxito");
     })
     .catch((error) => {
-      alert("Ocurrió un error al registrar la semana: " + error);
+        console.log("Ocurrió un error al registrar la semana: " + error);
     });
 };
 
 const iniciarsesion = async () => {
+    
     // 1. Obtener los valores de los inputs (IDs "nombre" y "contrasena")
     const nombre = document.getElementById("nombre").value.trim();
     const contrasena = document.getElementById("contrasena").value.trim();
   
     // 2. Verificar que no estén vacíos
     if (!nombre || !contrasena) {
-      alert("Por favor, completa ambos campos.");
+        console.log("Por favor, completa ambos campos.");
       return;
     }
   
@@ -97,12 +98,12 @@ const iniciarsesion = async () => {
       // 4. Evaluar el resultado
       if (!querySnapshot.empty) {
         // Si NO está vacío, hay al menos un documento que coincide
-        alert("Inicio de sesión exitoso");
+        console.log("Inicio de sesión exitoso");
         window.location.href = "administracion.html";
       } else {
-        alert("Nombre o contraseña incorrectos");
+        console.log("Nombre o contraseña incorrectos");
       }
     } catch (error) {
-      alert("Error al iniciar sesión: " + error);
+        console.log("Error al iniciar sesión: " + error);
     }
   };
