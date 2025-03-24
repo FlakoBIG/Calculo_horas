@@ -1,8 +1,19 @@
-import { registrarSemana } from "./promesas.js"; // Asegúrate de tener una función en promesas.js que maneje la inserción en Firebase
+import { Agregar_Semana, iniciarSesionUsuario, Ver_Semanas } from "./promesas.js";
 
-window.addEventListener("load", () => {
-  document.getElementById("btnAgregarSemana").addEventListener("click", registrarSemanaFirebase);
-  document.getElementById("btniniciarsesion").addEventListener("click", iniciarsesion);
+console.log("scrip.js cargado");
+
+document.addEventListener("DOMContentLoaded", () => {
+  console.log("DOM completamente cargado");
+
+  const btnIniciarSesion = document.getElementById("btniniciarsesion");
+  if (btnIniciarSesion) {
+    btnIniciarSesion.addEventListener("click", iniciarsesion);
+  }
+
+  const btnAgregarSemana = document.getElementById("btnAgregarSemana");
+  if (btnAgregarSemana) {
+    btnAgregarSemana.addEventListener("click", registrarSemanaFirebase);
+  }
 });
 
 const registrarSemanaFirebase = () => {
@@ -68,42 +79,40 @@ const registrarSemanaFirebase = () => {
   };
 
   console.log("Semana a registrar:", semana);
-
-  // Llamada a la función que inserta la semana en Firebase
-  registrarSemana(semana)
+  Agregar_Semana(semana)
     .then(() => {
-        console.log("Semana registrada con éxito");
+      console.log("Semana registrada con éxito");
     })
     .catch((error) => {
-        console.log("Ocurrió un error al registrar la semana: " + error);
+      console.log("Ocurrió un error al registrar la semana: " + error);
     });
 };
 
 const iniciarsesion = async () => {
-    
-    // 1. Obtener los valores de los inputs (IDs "nombre" y "contrasena")
-    const nombre = document.getElementById("nombre").value.trim();
-    const contrasena = document.getElementById("contrasena").value.trim();
-  
-    // 2. Verificar que no estén vacíos
-    if (!nombre || !contrasena) {
-        console.log("Por favor, completa ambos campos.");
-      return;
+  console.log("Click en iniciar sesión");
+  // 1. Obtener los valores de los inputs (IDs "nombre" y "contrasena")
+  const nombre = document.getElementById("nombre").value.trim();
+  const contrasena = document.getElementById("contrasena").value.trim();
+  console.log("Valores obtenidos - Nombre:", nombre, "Contraseña:", contrasena);
+
+  // 2. Verificar que no estén vacíos
+  if (!nombre || !contrasena) {
+    console.log("Por favor, completa ambos campos.");
+    return;
+  }
+
+  try {
+    // 3. Llamar a la función que hace la consulta en Firestore
+    const querySnapshot = await iniciarSesionUsuario(nombre, contrasena);
+
+    // 4. Evaluar el resultado
+    if (!querySnapshot.empty) {
+      console.log("Inicio de sesión exitoso");
+      window.location.href = "administracion.html";
+    } else {
+      console.log("Nombre o contraseña incorrectos");
     }
-  
-    try {
-      // 3. Llamar a la función que hace la consulta en Firestore
-      const querySnapshot = await iniciarSesionUsuario(nombre, contrasena);
-  
-      // 4. Evaluar el resultado
-      if (!querySnapshot.empty) {
-        // Si NO está vacío, hay al menos un documento que coincide
-        console.log("Inicio de sesión exitoso");
-        window.location.href = "administracion.html";
-      } else {
-        console.log("Nombre o contraseña incorrectos");
-      }
-    } catch (error) {
-        console.log("Error al iniciar sesión: " + error);
-    }
-  };
+  } catch (error) {
+    console.log("Error al iniciar sesión:", error);
+  }
+};
