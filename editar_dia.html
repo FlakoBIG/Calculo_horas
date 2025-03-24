@@ -1,21 +1,22 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <script type="module" src="Assets/Js/firebase.js"></script>
-    <script type="module" src="Assets/Js/scrip.js"></script>
-    <script type="module" src="Assets/Js/editar_dia.js"></script>
   <meta charset="UTF-8">
   <title>Editar Día</title>
+  <script type="module" src="Assets/Js/firebase.js"></script>
+  <script type="module" src="Assets/Js/scrip.js"></script>
+  <script type="module" src="Assets/Js/editar_dia.js"></script>
 </head>
 <body>
   <h1>Editar Día</h1>
+  <a href="/Administracion.html"><Button>Volver</Button></a>
   <div id="editar-dia-container">
     <form id="form-editar-dia">
-      <label for="horas_lolo">Horas Lolo:</label>
-      <input type="number" id="horas_lolo" required>
+      <label for="horas_lolo">Horas Lolo (Hora:Minutos):</label>
+      <input type="time" id="horas_lolo" required>
       <br>
-      <label for="horas_limpiesa">Horas Limpieza:</label>
-      <input type="number" id="horas_limpiesa" required>
+      <label for="horas_limpiesa">Horas Limpieza (Hora:Minutos):</label>
+      <input type="time" id="horas_limpiesa" required>
       <br>
       <button type="button" id="btn-calcular">Calcular</button>
       <br><br>

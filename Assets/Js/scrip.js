@@ -27,56 +27,56 @@ document.addEventListener("DOMContentLoaded", () => {
 const registrarSemanaFirebase = () => {
   const semana = {
     Lunes: {
-      Horas_lolo: 0,
-      Horas_limpiesa: 0,
+      Horas_lolo: "",
+      Horas_limpiesa: "",
       Pago_lolo: 0,
       Pago_limpiesa: 0,
       Procedimiento: "",
       Total: 0
     },
     Martes: {
-      Horas_lolo: 0,
-      Horas_limpiesa: 0,
+      Horas_lolo: "",
+      Horas_limpiesa: "",
       Pago_lolo: 0,
       Pago_limpiesa: 0,
       Procedimiento: "",
       Total: 0
     },
     Miercoles: {
-      Horas_lolo: 0,
-      Horas_limpiesa: 0,
+      Horas_lolo: "",
+      Horas_limpiesa: "",
       Pago_lolo: 0,
       Pago_limpiesa: 0,
       Procedimiento: "",
       Total: 0
     },
     Jueves: {
-      Horas_lolo: 0,
-      Horas_limpiesa: 0,
+      Horas_lolo: "",
+      Horas_limpiesa: "",
       Pago_lolo: 0,
       Pago_limpiesa: 0,
       Procedimiento: "",
       Total: 0
     },
     Viernes: {
-      Horas_lolo: 0,
-      Horas_limpiesa: 0,
+      Horas_lolo: "",
+      Horas_limpiesa: "",
       Pago_lolo: 0,
       Pago_limpiesa: 0,
       Procedimiento: "",
       Total: 0
     },
     Sabado: {
-      Horas_lolo: 0,
-      Horas_limpiesa: 0,
+      Horas_lolo: "",
+      Horas_limpiesa: "",
       Pago_lolo: 0,
       Pago_limpiesa: 0,
       Procedimiento: "",
       Total: 0
     },
     Domingo: {
-      Horas_lolo: 0,
-      Horas_limpiesa: 0,
+      Horas_lolo: "",
+      Horas_limpiesa: "",
       Pago_lolo: 0,
       Pago_limpiesa: 0,
       Procedimiento: "",

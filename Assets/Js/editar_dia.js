@@ -12,13 +12,23 @@ document.addEventListener("DOMContentLoaded", async () => {
     return;
   }
 
+  // Función para convertir tiempo "HH:MM" a horas decimales (solo para cálculos)
+  function convertirATiempoDecimal(tiempoStr) {
+    if (!tiempoStr) return 0;
+    const partes = tiempoStr.split(':');
+    const horas = parseInt(partes[0]) || 0;
+    const minutos = parseInt(partes[1]) || 0;
+    return horas + minutos / 60;
+  }
+
   // Cargar datos existentes para mostrar los valores previos
   try {
     const semanaData = await obtenerSemanaPorId(semanaId);
     if (semanaData && semanaData[dia]) {
       const diaData = semanaData[dia];
-      document.getElementById("horas_lolo").value = diaData.Horas_lolo || 0;
-      document.getElementById("horas_limpiesa").value = diaData.Horas_limpiesa || 0;
+      // Se asume que en la base de datos se guardan como string "HH:MM"
+      document.getElementById("horas_lolo").value = diaData.Horas_lolo || "00:00";
+      document.getElementById("horas_limpiesa").value = diaData.Horas_limpiesa || "00:00";
       document.getElementById("pago_lolo").value = diaData.Pago_lolo || 0;
       document.getElementById("pago_limpiesa").value = diaData.Pago_limpiesa || 0;
       document.getElementById("total").value = diaData.Total || 0;
@@ -31,20 +41,27 @@ document.addEventListener("DOMContentLoaded", async () => {
   // Botón Calcular
   const btnCalcular = document.getElementById("btn-calcular");
   btnCalcular.addEventListener("click", () => {
-    const horasLolo = parseFloat(document.getElementById("horas_lolo").value) || 0;
-    const horasLimpieza = parseFloat(document.getElementById("horas_limpiesa").value) || 0;
-    const pagoLolo = horasLolo * 90;
-    const pagoLimpieza = horasLimpieza * 200;
+    const tiempoLolo = document.getElementById("horas_lolo").value;
+    const tiempoLimpieza = document.getElementById("horas_limpiesa").value;
+
+    // Convertir el tiempo a decimal para poder hacer el cálculo
+    const horasLoloDecimal = convertirATiempoDecimal(tiempoLolo);
+    const horasLimpiezaDecimal = convertirATiempoDecimal(tiempoLimpieza);
+
+    const pagoLolo = horasLoloDecimal * 90;
+    const pagoLimpieza = horasLimpiezaDecimal * 200;
     const total = pagoLolo + pagoLimpieza;
     
-    // Procedimiento en tres líneas separadas
-    const procedimiento = `Operación Lolo: 90 x ${horasLolo} = ${pagoLolo}\n` +
-                          `Operación Limpieza: 200 x ${horasLimpieza} = ${pagoLimpieza}\n` +
-                          `Suma Total: ${pagoLolo} + ${pagoLimpieza} = ${total}`;
+    // Detalle del cálculo (se incluye la conversión que se realizó)
+    const procedimiento = `Conversión Lolo: ${tiempoLolo} = ${horasLoloDecimal.toFixed(2)} horas\n` +
+                          `Operación Lolo: 90 x ${horasLoloDecimal.toFixed(2)} = ${pagoLolo.toFixed(2)}\n` +
+                          `Conversión Limpieza: ${tiempoLimpieza} = ${horasLimpiezaDecimal.toFixed(2)} horas\n` +
+                          `Operación Limpieza: 200 x ${horasLimpiezaDecimal.toFixed(2)} = ${pagoLimpieza.toFixed(2)}\n` +
+                          `Suma Total: ${pagoLolo.toFixed(2)} + ${pagoLimpieza.toFixed(2)} = ${total.toFixed(2)}`;
     
-    document.getElementById("pago_lolo").value = pagoLolo;
-    document.getElementById("pago_limpiesa").value = pagoLimpieza;
-    document.getElementById("total").value = total;
+    document.getElementById("pago_lolo").value = pagoLolo.toFixed(2);
+    document.getElementById("pago_limpiesa").value = pagoLimpieza.toFixed(2);
+    document.getElementById("total").value = total.toFixed(2);
     document.getElementById("procedimiento").value = procedimiento;
   });
 
@@ -52,17 +69,23 @@ document.addEventListener("DOMContentLoaded", async () => {
   const form = document.getElementById("form-editar-dia");
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
-    const horasLolo = parseFloat(document.getElementById("horas_lolo").value) || 0;
-    const horasLimpieza = parseFloat(document.getElementById("horas_limpiesa").value) || 0;
+    // Se toman los valores originales del input (formato "HH:MM")
+    const tiempoLolo = document.getElementById("horas_lolo").value;
+    const tiempoLimpieza = document.getElementById("horas_limpiesa").value;
+    
+    // Se sigue haciendo la conversión para calcular pagos
+    const horasLoloDecimal = convertirATiempoDecimal(tiempoLolo);
+    const horasLimpiezaDecimal = convertirATiempoDecimal(tiempoLimpieza);
     const pagoLolo = parseFloat(document.getElementById("pago_lolo").value) || 0;
     const pagoLimpieza = parseFloat(document.getElementById("pago_limpiesa").value) || 0;
     const total = parseFloat(document.getElementById("total").value) || 0;
     const procedimiento = document.getElementById("procedimiento").value;
 
-    // Objeto con los datos actualizados para el día
+    // Objeto con los datos actualizados para el día.
+    // Se almacenan los tiempos en formato "HH:MM", no el valor decimal.
     const datosActualizados = {
-      Horas_lolo: horasLolo,
-      Horas_limpiesa: horasLimpieza,
+      Horas_lolo: tiempoLolo,
+      Horas_limpiesa: tiempoLimpieza,
       Pago_lolo: pagoLolo,
       Pago_limpiesa: pagoLimpieza,
       Total: total,
