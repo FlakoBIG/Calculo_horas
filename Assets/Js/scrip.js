@@ -1,6 +1,11 @@
-import { Agregar_Semana, iniciarSesionUsuario,listarSemanas} from "./promesas.js";
+// script.js
+import {
+  Agregar_Semana,
+  iniciarSesionUsuario,
+  listarSemanas
+} from "./promesas.js";
 
-console.log("scrip.js cargado");
+console.log("script.js cargado");
 
 document.addEventListener("DOMContentLoaded", () => {
   console.log("DOM completamente cargado");
@@ -14,11 +19,12 @@ document.addEventListener("DOMContentLoaded", () => {
   if (btnAgregarSemana) {
     btnAgregarSemana.addEventListener("click", registrarSemanaFirebase);
   }
+
+  // Al cargar la página, mostramos las semanas como botones
   cargarSemanas();
 });
 
 const registrarSemanaFirebase = () => {
-  // Estructura de la semana con valores iniciales en 0
   const semana = {
     Lunes: {
       Horas_lolo: 0,
@@ -79,10 +85,10 @@ const registrarSemanaFirebase = () => {
     Total_Semanal: 0
   };
 
-  console.log("Semana a registrar:", semana);
   Agregar_Semana(semana)
     .then(() => {
       console.log("Semana registrada con éxito");
+      // Recargamos la página
       window.location.reload();
     })
     .catch((error) => {
@@ -91,23 +97,16 @@ const registrarSemanaFirebase = () => {
 };
 
 const iniciarsesion = async () => {
-  console.log("Click en iniciar sesión");
-  // 1. Obtener los valores de los inputs (IDs "nombre" y "contrasena")
   const nombre = document.getElementById("nombre").value.trim();
   const contrasena = document.getElementById("contrasena").value.trim();
-  console.log("Valores obtenidos - Nombre:", nombre, "Contraseña:", contrasena);
 
-  // 2. Verificar que no estén vacíos
   if (!nombre || !contrasena) {
     console.log("Por favor, completa ambos campos.");
     return;
   }
 
   try {
-    // 3. Llamar a la función que hace la consulta en Firestore
     const querySnapshot = await iniciarSesionUsuario(nombre, contrasena);
-
-    // 4. Evaluar el resultado
     if (!querySnapshot.empty) {
       console.log("Inicio de sesión exitoso");
       window.location.href = "administracion.html";
@@ -119,20 +118,27 @@ const iniciarsesion = async () => {
   }
 };
 
+// MOSTRAR LAS SEMANAS COMO BOTONES
 const cargarSemanas = async () => {
   try {
-    const listaContainer = document.getElementById('lista-semanas');
-    // Obtener las semanas desde Firebase usando la función importada
+    const listaContainer = document.getElementById("lista-semanas");
     const semanas = await listarSemanas();
     listaContainer.innerHTML = "";
 
-    semanas.forEach(semana => {
+    semanas.forEach((semana) => {
       const { id, data } = semana;
       const totalSemanal = data.Total_Semanal;
-      const semanaElem = document.createElement('div');
-      // Formato: "Semana 1   $0"
-      semanaElem.textContent = `Semana ${id}   $${totalSemanal}`;
-      listaContainer.appendChild(semanaElem);
+
+      // Creamos un botón en lugar de un div
+      const botonSemana = document.createElement("button");
+      botonSemana.textContent = `Semana ${id} - $${totalSemanal}`;
+      
+      // Al hacer clic, redirigimos a detalle_semana.html pasando el ID
+      botonSemana.addEventListener("click", () => {
+        window.location.href = `detalle_semana.html?semanaId=${id}`;
+      });
+
+      listaContainer.appendChild(botonSemana);
     });
   } catch (error) {
     console.error("Error al cargar las semanas:", error);
