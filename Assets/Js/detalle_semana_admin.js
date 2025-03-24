@@ -1,4 +1,3 @@
-// detalle_semana_admin.js
 import { obtenerSemanaPorId } from "./promesas.js";
 
 document.addEventListener("DOMContentLoaded", async () => {
@@ -19,19 +18,46 @@ document.addEventListener("DOMContentLoaded", async () => {
       return;
     }
 
-    container.innerHTML = `<h2>Semana ${semanaId}</h2>`;
-    // Lista de días de la semana
+    let html = `<h2 style="text-align:center;">Semana ${semanaId}</h2>`;
+    html += `
+      <table>
+        <thead>
+          <tr>
+            <th>Día</th>
+            <th>Horas Lolo</th>
+            <th>Horas Limpieza</th>
+            <th>Pago Lolo</th>
+            <th>Pago Limpieza</th>
+            <th>Procedimiento</th>
+            <th>Total</th>
+          </tr>
+        </thead>
+        <tbody>
+    `;
+
     const dias = ["Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado", "Domingo"];
-    dias.forEach((dia) => {
-      const botonDia = document.createElement("button");
-      botonDia.textContent = dia;
-      // Al pulsar el botón, se redirige a la página para editar ese día, pasando el ID de la semana y el nombre del día
-      botonDia.addEventListener("click", () => {
-        window.location.href = `editar_dia.html?semanaId=${semanaId}&dia=${dia}`;
-      });
-      container.appendChild(botonDia);
+    dias.forEach(dia => {
+      if (semanaData[dia]) {
+        html += `
+          <tr>
+            <td>
+              <button class="dia-btn" onclick="window.location.href='editar_dia.html?semanaId=${semanaId}&dia=${dia}'">${dia}</button>
+            </td>
+            <td>${semanaData[dia].Horas_lolo}</td>
+            <td>${semanaData[dia].Horas_limpiesa}</td>
+            <td>$${semanaData[dia].Pago_lolo}</td>
+            <td>$${semanaData[dia].Pago_limpiesa}</td>
+            <td>${semanaData[dia].Procedimiento}</td>
+            <td>$${semanaData[dia].Total}</td>
+          </tr>
+        `;
+      }
     });
+
+    html += `</tbody></table>`;
+    container.innerHTML = html;
   } catch (error) {
     container.textContent = "Error al cargar la semana.";
+    console.error(error);
   }
 });

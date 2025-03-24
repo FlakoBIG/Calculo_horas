@@ -1,4 +1,3 @@
-// administracion.js
 import { Agregar_Semana, listarSemanas } from "./promesas.js";
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -34,9 +33,12 @@ const registrarSemanaFirebase = () => {
     });
 };
 
-// Función para listar las semanas en el modo administración
+// Función para listar las semanas en modo administración
 const cargarSemanasAdmin = async () => {
   try {
+    // Mostrar el spinner mientras se carga la información
+    document.getElementById("loader").style.display = "block";
+
     const listaContainer = document.getElementById("lista-semanas");
     const semanas = await listarSemanas();
     listaContainer.innerHTML = "";
@@ -58,5 +60,8 @@ const cargarSemanasAdmin = async () => {
     });
   } catch (error) {
     console.error("Error al cargar las semanas en administración:", error);
+  } finally {
+    // Ocultar el spinner una vez finalizada la carga
+    document.getElementById("loader").style.display = "none";
   }
 };

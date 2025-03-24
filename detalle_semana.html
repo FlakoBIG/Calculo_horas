@@ -6,10 +6,91 @@
   <script type="module" src="Assets/Js/firebase.js"></script>
   <script type="module" src="Assets/Js/scrip.js"></script>
   <script type="module" src="Assets/Js/detalle_semana.js"></script>
+  <style>
+    /* Estilos generales */
+    body {
+      background-color: #1e1e1e;
+      color: #fff;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      width: 90%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    h1, h2 {
+      text-align: center;
+    }
+    /* Botón de volver */
+    a button {
+      display: block;
+      margin: 20px auto;
+      padding: 10px 20px;
+      background-color: #6a0dad;
+      border: none;
+      border-radius: 10px;
+      color: #fff;
+      font-size: 1em;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    a button:hover {
+      background-color: #7d3cb9;
+    }
+    /* Estilos para la tabla */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+    th, td {
+      border: 1px solid #444;
+      padding: 10px;
+      text-align: center;
+    }
+    th {
+      background-color: #6a0dad;
+    }
+    tr:nth-child(even) {
+      background-color: #2e2e2e;
+    }
+    tr:nth-child(odd) {
+      background-color: #1e1e1e;
+    }
+    /* Spinner de carga */
+    #loader {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 1000;
+    }
+    .spinner {
+      border: 8px solid #f3f3f3;
+      border-top: 8px solid #6a0dad;
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      animation: girar 1s linear infinite;
+    }
+    @keyframes girar {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+  </style>
 </head>
 <body>
-  <h1>Detalle de la Semana</h1>
-  <a href="../"><Button>Volver</Button></a>
-  <div id="detalle-semana"></div>
+  <!-- Spinner de carga -->
+  <div id="loader">
+    <div class="spinner"></div>
+  </div>
+  <div class="container">
+    <h1>Detalle de la Semana</h1>
+    <a href="../"><button>Volver</button></a>
+    <div id="detalle-semana"></div>
+  </div>
 </body>
 </html>

@@ -2,15 +2,128 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <!-- Asegúrate de cargar firebase.js y el nuevo script de administración -->
-  <script type="module" src="Assets/Js/firebase.js"></script>
-  <script type="module" src="Assets/Js/administracion.js"></script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Caroline - Administración</title>
+  <script type="module" src="Assets/Js/firebase.js"></script>
+  <script type="module" src="Assets/Js/administracion.js"></script>
+  <style>
+    /* Fondo y tipografía general */
+    body {
+      background-color: #1e1e1e;
+      color: #fff;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+    /* Contenedor principal */
+    .container {
+      width: 90%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    /* Encabezado: Título y botón para cerrar sesión */
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      margin-bottom: 20px;
+    }
+    header h1 {
+      font-size: 1.8em;
+      margin: 0;
+      text-align: center;
+    }
+    header a {
+      position: absolute;
+      left: 0;
+      text-decoration: none;
+    }
+    header a button {
+      background-color: #6a0dad;
+      border: none;
+      border-radius: 10px;
+      padding: 10px 20px;
+      color: #fff;
+      font-size: 1em;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    header a button:hover {
+      background-color: #7d3cb9;
+    }
+    /* Botón para Agregar Semana */
+    #btnAgregarSemana {
+      background-color: #6a0dad;
+      border: none;
+      border-radius: 10px;
+      padding: 12px 20px;
+      color: #fff;
+      font-size: 1em;
+      cursor: pointer;
+      transition: background-color 0.3s;
+      display: block;
+      width: 100%;
+      max-width: 300px;
+      margin: 20px auto;
+    }
+    #btnAgregarSemana:hover {
+      background-color: #7d3cb9;
+    }
+    /* Lista de semanas: Botones a pantalla completa con márgenes */
+    #lista-semanas button {
+      width: calc(100% - 40px);
+      margin: 10px 20px;
+      display: block;
+      background-color: #6a0dad;
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      padding: 15px;
+      font-size: 1em;
+      cursor: pointer;
+      transition: background-color 0.3s;
+      text-align: left;
+    }
+    #lista-semanas button:hover {
+      background-color: #7d3cb9;
+    }
+    /* Spinner de carga */
+    #loader {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 1000;
+      display: none;
+    }
+    .spinner {
+      border: 8px solid #f3f3f3;
+      border-top: 8px solid #6a0dad;
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      animation: girar 1s linear infinite;
+    }
+    @keyframes girar {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+  </style>
 </head>
 <body>
-  <a href="../"><Button>Cerrar Sesion</Button></a>
-  <button id="btnAgregarSemana">Agregar Semana</button>
-  <div id="lista-semanas"></div>
+  <!-- Spinner de carga -->
+  <div id="loader">
+    <div class="spinner"></div>
+  </div>
+  <div class="container">
+    <header>
+      <a href="../"><button>Cerrar Sesión</button></a>
+      <h1>Administración</h1>
+    </header>
+    <button id="btnAgregarSemana">Agregar Semana</button>
+    <div id="lista-semanas"></div>
+  </div>
 </body>
 </html>

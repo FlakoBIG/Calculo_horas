@@ -1,4 +1,3 @@
-// editar_dia.js
 import { obtenerSemanaPorId, actualizarDiaYTotalSemanal } from "./promesas.js";
 
 document.addEventListener("DOMContentLoaded", async () => {
@@ -52,13 +51,16 @@ document.addEventListener("DOMContentLoaded", async () => {
     const pagoLimpieza = horasLimpiezaDecimal * 200;
     const total = pagoLolo + pagoLimpieza;
     
-    // Detalle del cálculo (se incluye la conversión que se realizó)
-    const procedimiento = `Conversión Lolo: ${tiempoLolo} = ${horasLoloDecimal.toFixed(2)} horas\n` +
-                          `Operación Lolo: 90 x ${horasLoloDecimal.toFixed(2)} = ${pagoLolo.toFixed(2)}\n` +
-                          `Conversión Limpieza: ${tiempoLimpieza} = ${horasLimpiezaDecimal.toFixed(2)} horas\n` +
-                          `Operación Limpieza: 200 x ${horasLimpiezaDecimal.toFixed(2)} = ${pagoLimpieza.toFixed(2)}\n` +
-                          `Suma Total: ${pagoLolo.toFixed(2)} + ${pagoLimpieza.toFixed(2)} = ${total.toFixed(2)}`;
-    
+    // Se formatea el procedimiento con separadores y saltos de línea
+    const procedimiento =
+`Conversión Lolo: ${tiempoLolo} = ${horasLoloDecimal.toFixed(2)} horas
+Operación Lolo: 90 x ${horasLoloDecimal.toFixed(2)} = ${pagoLolo.toFixed(2)}
+------------------------------------
+Conversión Limpieza: ${tiempoLimpieza} = ${horasLimpiezaDecimal.toFixed(2)} horas
+Operación Limpieza: 200 x ${horasLimpiezaDecimal.toFixed(2)} = ${pagoLimpieza.toFixed(2)}
+------------------------------------
+Suma Total: ${pagoLolo.toFixed(2)} + ${pagoLimpieza.toFixed(2)} = ${total.toFixed(2)}`;
+
     document.getElementById("pago_lolo").value = pagoLolo.toFixed(2);
     document.getElementById("pago_limpiesa").value = pagoLimpieza.toFixed(2);
     document.getElementById("total").value = total.toFixed(2);

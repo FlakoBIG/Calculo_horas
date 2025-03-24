@@ -6,11 +6,72 @@
   <script type="module" src="Assets/Js/scrip.js"></script>
   <script type="module" src="Assets/Js/detalle_semana_admin.js"></script>
   <title>Detalle Semana Admin</title>
+  <style>
+    /* Fondo y tipografía */
+    body {
+      background-color: #1e1e1e;
+      color: #fff;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    /* Botón de volver */
+    a button {
+      display: block;
+      margin: 0 auto 20px;
+      padding: 10px 20px;
+      background-color: #6a0dad;
+      border: none;
+      border-radius: 10px;
+      color: #fff;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    a button:hover {
+      background-color: #7d3cb9;
+    }
+    /* Estilos para la tabla */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+    th, td {
+      border: 1px solid #444;
+      padding: 10px;
+      text-align: center;
+    }
+    th {
+      background-color: #6a0dad;
+    }
+    tr:nth-child(even) {
+      background-color: #2e2e2e;
+    }
+    tr:nth-child(odd) {
+      background-color: #1e1e1e;
+    }
+    /* Botón para el día */
+    .dia-btn {
+      background-color: #6a0dad;
+      border: none;
+      border-radius: 10px;
+      padding: 5px 10px;
+      color: #fff;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    .dia-btn:hover {
+      background-color: #7d3cb9;
+    }
+  </style>
 </head>
 <body>
   <h1>Detalle de la Semana (Administración)</h1>
-  <a href="/Administracion.html"><Button>Volver</Button></a>
+  <a href="/Administracion.html"><button>Volver</button></a>
   <div id="detalle-semana-admin"></div>
-
 </body>
 </html>

@@ -121,6 +121,7 @@ const iniciarsesion = async () => {
 const cargarSemanas = async () => {
   try {
     const listaContainer = document.getElementById("lista-semanas");
+    // Simular la carga de datos (o llamar a tu función real listarSemanas)
     const semanas = await listarSemanas();
     listaContainer.innerHTML = "";
 
@@ -144,5 +145,8 @@ const cargarSemanas = async () => {
     });
   } catch (error) {
     console.error("Error al cargar las semanas:", error);
+  } finally {
+    // Ocultar el spinner al finalizar la carga
+    document.getElementById("loader").style.display = "none";
   }
 };

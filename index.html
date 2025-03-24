@@ -16,7 +16,7 @@
       padding: 0;
     }
 
-    /* Estilo para el contenedor general */
+    /* Contenedor general */
     .container {
       width: 90%;
       max-width: 1200px;
@@ -30,7 +30,7 @@
       max-width: 400px;
       margin: 20px auto;
       display: block;
-      background-color: #6a0dad; /* morado */
+      background-color: #6a0dad;
       color: #fff;
       border: none;
       border-radius: 10px;
@@ -52,10 +52,10 @@
 
     /* Botones para las semanas */
     #lista-semanas button {
-      width: calc(100% - 40px); /* Ocupa todo el ancho menos 20px de margen a cada lado */
+      width: calc(100% - 40px);
       margin: 10px 20px;
       display: block;
-      background-color: #6a0dad; /* morado */
+      background-color: #6a0dad;
       color: #fff;
       border: none;
       border-radius: 10px;
@@ -69,9 +69,37 @@
     #lista-semanas button:hover {
       background-color: #7d3cb9;
     }
+
+    /* Spinner de carga */
+    #loader {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 1000;
+    }
+
+    .spinner {
+      border: 8px solid #f3f3f3;
+      border-top: 8px solid #6a0dad;
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      animation: girar 1s linear infinite;
+    }
+
+    @keyframes girar {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
   </style>
 </head>
 <body>
+  <!-- Spinner de carga -->
+  <div id="loader">
+    <div class="spinner"></div>
+  </div>
+
   <div class="container">
     <a href="iniciar_sesion.html">
       <button>Iniciar Sesión</button>

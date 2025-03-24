@@ -6,11 +6,85 @@
   <script type="module" src="Assets/Js/firebase.js"></script>
   <script type="module" src="Assets/Js/scrip.js"></script>
   <script type="module" src="Assets/Js/editar_dia.js"></script>
+  <style>
+    body {
+      background-color: #1e1e1e;
+      color: #fff;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    a button {
+      display: block;
+      margin: 0 auto 20px;
+      padding: 10px 20px;
+      background-color: #6a0dad;
+      border: none;
+      border-radius: 10px;
+      color: #fff;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    a button:hover {
+      background-color: #7d3cb9;
+    }
+    form {
+      max-width: 500px;
+      margin: 0 auto;
+      background-color: #2e2e2e;
+      padding: 20px;
+      border-radius: 10px;
+    }
+    label {
+      display: block;
+      margin: 10px 0 5px;
+    }
+    input[type="time"],
+    input[type="number"],
+    textarea {
+      width: 95%;
+      padding: 10px;
+      margin-bottom: 10px;
+      border: 1px solid #444;
+      border-radius: 5px;
+      background-color: #1e1e1e;
+      color: #fff;
+    }
+    textarea {
+      font-family: "Courier New", Courier, monospace;
+      resize: none;
+      height: 150px;
+    }
+    button {
+      background-color: #6a0dad;
+      border: none;
+      border-radius: 10px;
+      padding: 12px 20px;
+      color: #fff;
+      font-size: 1em;
+      cursor: pointer;
+      transition: background-color 0.3s;
+      display: block;
+      width: 100%;
+      margin-top: 10px;
+    }
+    button:hover {
+      background-color: #7d3cb9;
+    }
+    #volver{
+      margin-right:59%;
+      width: 10%;
+    }
+  </style>
 </head>
 <body>
   <h1>Editar Día</h1>
-  <a href="/Administracion.html"><Button>Volver</Button></a>
   <div id="editar-dia-container">
+    <a href="/Administracion.html"><button id="volver">Volver</button></a>
     <form id="form-editar-dia">
       <label for="horas_lolo">Horas Lolo (Hora:Minutos):</label>
       <input type="time" id="horas_lolo" required>
