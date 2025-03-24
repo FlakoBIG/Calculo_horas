@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <script type="module" src="Assets/Js/firebase.js"></script>
+    <script type="module" src="Assets/Js/scrip.js"></script>
+    <script type="module" src="Assets/Js/editar_dia.js"></script>
+  <meta charset="UTF-8">
+  <title>Editar Día</title>
+</head>
+<body>
+  <h1>Editar Día</h1>
+  <div id="editar-dia-container">
+    <form id="form-editar-dia">
+      <label for="horas_lolo">Horas Lolo:</label>
+      <input type="number" id="horas_lolo" required>
+      <br>
+      <label for="horas_limpiesa">Horas Limpieza:</label>
+      <input type="number" id="horas_limpiesa" required>
+      <br>
+      <button type="button" id="btn-calcular">Calcular</button>
+      <br><br>
+      <label for="pago_lolo">Pago Lolo:</label>
+      <input type="number" id="pago_lolo" readonly>
+      <br>
+      <label for="pago_limpiesa">Pago Limpieza:</label>
+      <input type="number" id="pago_limpiesa" readonly>
+      <br>
+      <label for="total">Total del Día:</label>
+      <input type="number" id="total" readonly>
+      <br>
+      <label for="procedimiento">Procedimiento:</label>
+      <textarea id="procedimiento" readonly></textarea>
+      <br>
+      <button type="submit" id="btn-guardar">Guardar</button>
+    </form>
+  </div>
+</body>
+</html>
