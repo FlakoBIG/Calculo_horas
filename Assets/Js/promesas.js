@@ -14,5 +14,6 @@ export const Ver_Semanas = async()=>{
   querySnap.forEach(doc => {
     listado_Semanas.push({...doc.data(),id:doc.id});
   });
+  //return lista
   return listado
 }
