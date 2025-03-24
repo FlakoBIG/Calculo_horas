@@ -17,3 +17,16 @@ export const Ver_Semanas = async()=>{
   //return lista
   return listado
 }
+export async function iniciarSesionUsuario(nombre, contrasena) {
+  // Referencia a la colección "cuenta"
+  const cuentaRef = collection(db, "cuenta");
+  // Construimos la consulta con "where"
+  const q = query(
+    cuentaRef,
+    where("Nombre", "==", nombre),
+    where("Contraseña", "==", contrasena)
+  );
+  // Ejecutamos la consulta
+  const querySnapshot = await getDocs(q);
+  return querySnapshot; // Retornamos el snapshot para evaluarlo después
+}

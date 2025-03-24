@@ -2,6 +2,7 @@ import { registrarSemana } from "./promesas.js"; // Asegúrate de tener una func
 
 window.addEventListener("load", () => {
   document.getElementById("btnAgregarSemana").addEventListener("click", registrarSemanaFirebase);
+  document.getElementById("btniniciarsesion").addEventListener("click", iniciarsesion);
 });
 
 const registrarSemanaFirebase = () => {
@@ -77,3 +78,31 @@ const registrarSemanaFirebase = () => {
       alert("Ocurrió un error al registrar la semana: " + error);
     });
 };
+
+const iniciarsesion = async () => {
+    // 1. Obtener los valores de los inputs (IDs "nombre" y "contrasena")
+    const nombre = document.getElementById("nombre").value.trim();
+    const contrasena = document.getElementById("contrasena").value.trim();
+  
+    // 2. Verificar que no estén vacíos
+    if (!nombre || !contrasena) {
+      alert("Por favor, completa ambos campos.");
+      return;
+    }
+  
+    try {
+      // 3. Llamar a la función que hace la consulta en Firestore
+      const querySnapshot = await iniciarSesionUsuario(nombre, contrasena);
+  
+      // 4. Evaluar el resultado
+      if (!querySnapshot.empty) {
+        // Si NO está vacío, hay al menos un documento que coincide
+        alert("Inicio de sesión exitoso");
+        window.location.href = "administracion.html";
+      } else {
+        alert("Nombre o contraseña incorrectos");
+      }
+    } catch (error) {
+      alert("Error al iniciar sesión: " + error);
+    }
+  };
