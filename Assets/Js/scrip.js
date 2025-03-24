@@ -118,7 +118,6 @@ const iniciarsesion = async () => {
   }
 };
 
-// MOSTRAR LAS SEMANAS COMO BOTONES
 const cargarSemanas = async () => {
   try {
     const listaContainer = document.getElementById("lista-semanas");
@@ -132,7 +131,7 @@ const cargarSemanas = async () => {
       const { id, data } = semana;
       const totalSemanal = data.Total_Semanal;
 
-      // Creamos un botón en lugar de un div
+      // Creamos un botón para cada semana
       const botonSemana = document.createElement("button");
       botonSemana.textContent = `Semana ${id} - $${totalSemanal}`;
 

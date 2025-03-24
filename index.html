@@ -1,16 +1,81 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script type="module" src="Assets/Js/firebase.js"></script>
-    <script type="module" src="Assets/Js/scrip.js"></script>
-    <title>Caroline</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Caroline</title>
+  <script type="module" src="Assets/Js/firebase.js"></script>
+  <script type="module" src="Assets/Js/scrip.js"></script>
+  <style>
+    /* Fondo y tipografía */
+    body {
+      background-color: #1e1e1e;
+      color: #ffffff;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* Estilo para el contenedor general */
+    .container {
+      width: 90%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px 0;
+    }
+
+    /* Botón de Iniciar Sesión */
+    a button {
+      width: 100%;
+      max-width: 400px;
+      margin: 20px auto;
+      display: block;
+      background-color: #6a0dad; /* morado */
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      padding: 15px;
+      font-size: 1.2em;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    a button:hover {
+      background-color: #7d3cb9;
+    }
+
+    /* Título centrado */
+    h2 {
+      text-align: center;
+      margin-top: 40px;
+    }
+
+    /* Botones para las semanas */
+    #lista-semanas button {
+      width: calc(100% - 40px); /* Ocupa todo el ancho menos 20px de margen a cada lado */
+      margin: 10px 20px;
+      display: block;
+      background-color: #6a0dad; /* morado */
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      padding: 15px;
+      font-size: 1em;
+      cursor: pointer;
+      text-align: left;
+      transition: background-color 0.3s;
+    }
+
+    #lista-semanas button:hover {
+      background-color: #7d3cb9;
+    }
+  </style>
 </head>
 <body>
-    <a href="iniciar_sesion.html"><button>Iniciar Sesión</button></a>
+  <div class="container">
+    <a href="iniciar_sesion.html">
+      <button>Iniciar Sesión</button>
+    </a>
     <h2>Semanas Registradas</h2>
     <div id="lista-semanas"></div>
-
-</body>
-</html>
+  </div>
