@@ -54,7 +54,6 @@ export const listarSemanas = async () => {
   }
 };
 
-// NUEVA FUNCIÓN: Obtener la información de una semana por su ID
 export const obtenerSemanaPorId = async (semanaId) => {
   try {
     const docRef = doc(db, "Semana", semanaId);

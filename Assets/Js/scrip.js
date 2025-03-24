@@ -1,4 +1,4 @@
-// script.js
+
 import {
   Agregar_Semana,
   iniciarSesionUsuario,
@@ -125,6 +125,9 @@ const cargarSemanas = async () => {
     const semanas = await listarSemanas();
     listaContainer.innerHTML = "";
 
+    // Ordenar las semanas de mayor a menor según su ID
+    semanas.sort((a, b) => b.id - a.id);
+
     semanas.forEach((semana) => {
       const { id, data } = semana;
       const totalSemanal = data.Total_Semanal;
@@ -132,7 +135,7 @@ const cargarSemanas = async () => {
       // Creamos un botón en lugar de un div
       const botonSemana = document.createElement("button");
       botonSemana.textContent = `Semana ${id} - $${totalSemanal}`;
-      
+
       // Al hacer clic, redirigimos a detalle_semana.html pasando el ID
       botonSemana.addEventListener("click", () => {
         window.location.href = `detalle_semana.html?semanaId=${id}`;
