@@ -51,7 +51,12 @@ document.addEventListener("DOMContentLoaded", async () => {
             <td>${semanaData[dia].Horas_limpiesa}</td>
             <td>$${semanaData[dia].Pago_lolo}</td>
             <td>$${semanaData[dia].Pago_limpiesa}</td>
-            <td >${semanaData[dia].Procedimiento.replace(/\n/g, "<br>")}</td>
+            <td>
+              <button class="btn toggle-btn" onclick="toggleProcedimiento(this)">Mostrar</button>
+              <div class="procedimiento-content" style="display: none;">
+                ${semanaData[dia].Procedimiento.replace(/\n/g, "<br>")}
+              </div>
+            </td>
             <td>$${semanaData[dia].Total}</td>
           </tr>
         `;
@@ -72,3 +77,14 @@ document.addEventListener("DOMContentLoaded", async () => {
     document.getElementById("loader").style.display = "none";
   }
 });
+// Función para mostrar/ocultar el contenido del procedimiento
+window.toggleProcedimiento = function(button) {
+  const content = button.nextElementSibling;
+  if (content.style.display === "none") {
+    content.style.display = "block";
+    button.textContent = "Ocultar";
+  } else {
+    content.style.display = "none";
+    button.textContent = "Mostrar";
+  }
+};

@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   const semanaId = urlParams.get("semanaId");
   const container = document.getElementById("detalle-semana-admin");
 
-  if (!semanaId) {zzs
+  if (!semanaId) {
     container.textContent = "No se proporcionó el ID de la semana.";
     return;
   }
@@ -47,7 +47,12 @@ document.addEventListener("DOMContentLoaded", async () => {
             <td>${semanaData[dia].Horas_limpiesa}</td>
             <td>$${semanaData[dia].Pago_lolo}</td>
             <td>$${semanaData[dia].Pago_limpiesa}</td>
-            <td style="white-space: pre-line; max-width: 200px; overflow-wrap: break-word;">${semanaData[dia].Procedimiento.replace(/\n/g, "<br>")}</td>
+            <td>
+              <button class="btn toggle-btn" onclick="toggleProcedimiento(this)">Mostrar</button>
+              <div class="procedimiento-content" style="display: none;">
+                ${semanaData[dia].Procedimiento.replace(/\n/g, "<br>")}
+              </div>
+            </td>
             <td>$${semanaData[dia].Total}</td>
           </tr>
         `;
@@ -61,3 +66,15 @@ document.addEventListener("DOMContentLoaded", async () => {
     console.error(error);
   }
 });
+
+// Función para mostrar/ocultar el contenido del procedimiento
+window.toggleProcedimiento = function(button) {
+  const content = button.nextElementSibling;
+  if (content.style.display === "none") {
+    content.style.display = "block";
+    button.textContent = "Ocultar";
+  } else {
+    content.style.display = "none";
+    button.textContent = "Mostrar";
+  }
+};
