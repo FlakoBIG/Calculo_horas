@@ -8,8 +8,16 @@ document.addEventListener("DOMContentLoaded", () => {
   cargarSemanasAdmin();
 });
 
-// Función para agregar una nueva semana
 const registrarSemanaFirebase = () => {
+  const btn = document.getElementById("btnAgregarSemana");
+  const spinner = document.getElementById("spinner-agregar");
+  const texto = document.getElementById("texto-agregar");
+
+  // Mostrar spinner, ocultar texto, desactivar botón
+  spinner.style.display = "block";
+  texto.style.display = "none";
+  btn.disabled = true;
+
   const semana = {
     Lunes: { Horas_lolo: 0, Horas_limpiesa: 0, Pago_lolo: 0, Pago_limpiesa: 0, Procedimiento: "", Total: 0 },
     Martes: { Horas_lolo: 0, Horas_limpiesa: 0, Pago_lolo: 0, Pago_limpiesa: 0, Procedimiento: "", Total: 0 },
@@ -21,17 +29,31 @@ const registrarSemanaFirebase = () => {
     Total_Semanal: 0
   };
 
-  console.log("Semana a registrar:", semana);
   Agregar_Semana(semana)
     .then(() => {
       console.log("Semana registrada con éxito");
-      // Recargamos la página para ver el nuevo botón en la lista
+
+      // Restaurar el botón ANTES de recargar
+      spinner.style.display = "none";
+      texto.style.display = "inline";
+      btn.disabled = false;
+
+      // Luego recarga
       window.location.reload();
     })
     .catch((error) => {
-      console.error("Ocurrió un error al registrar la semana:", error);
+      console.error("Error al registrar semana:", error);
+
+      // Restaurar botón si hay error
+      spinner.style.display = "none";
+      texto.style.display = "inline";
+      btn.disabled = false;
+
+      alert("Error al registrar la semana.");
     });
 };
+
+
 
 // Función para listar las semanas en modo administración
 const cargarSemanasAdmin = async () => {
@@ -43,15 +65,33 @@ const cargarSemanasAdmin = async () => {
     const semanas = await listarSemanas();
     listaContainer.innerHTML = "";
 
-    semanas.forEach((semana) => {
+    // Ordenar de mayor a menor (la primera será la más reciente)
+    semanas.sort((a, b) => b.id - a.id);
+
+    semanas.forEach((semana, index) => {
       const { id, data } = semana;
       const totalSemanal = data.Total_Semanal;
       
-      // Creamos un botón para cada semana
+      // Crear un botón para cada semana
       const botonSemana = document.createElement("button");
       botonSemana.textContent = `Semana ${id} - $${totalSemanal}`;
       
-      // Redirige a detalle_semana_admin.html pasando el ID de la semana en la query string
+      // Si es la semana más actual, agregar una etiqueta para remarcarlo
+      if (index === 0) {
+        const etiqueta = document.createElement("span");
+        etiqueta.textContent = "Sem. actual";
+        etiqueta.style.backgroundColor = "#28a745"; // verde
+        etiqueta.style.color = "#fff";
+        etiqueta.style.padding = "5px 10px";
+        etiqueta.style.borderRadius = "15px";
+        etiqueta.style.marginLeft = "10px";
+        etiqueta.style.fontSize = "0.9em";
+        etiqueta.style.verticalAlign = "middle";
+
+        botonSemana.appendChild(etiqueta);
+      }
+      
+      // Redirigir a detalle_semana_admin.html pasando el ID de la semana como query string
       botonSemana.addEventListener("click", () => {
         window.location.href = `detalle_semana_admin.html?semanaId=${id}`;
       });

@@ -72,13 +72,28 @@
       display: block;
       width: 100%;
       margin-top: 10px;
+      position: relative;
     }
     button:hover {
       background-color: #7d3cb9;
     }
-    #volver{
-      margin-right:59%;
+    #volver {
+      margin-right: 59%;
       width: 10%;
+    }
+    .spinner {
+      border: 3px solid #fff;
+      border-top: 3px solid transparent;
+      border-radius: 50%;
+      width: 20px;
+      height: 20px;
+      animation: spin 1s linear infinite;
+      display: none;
+      margin: 0 auto;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
     }
   </style>
 </head>
@@ -89,25 +104,22 @@
     <form id="form-editar-dia">
       <label for="horas_lolo">Horas Lolo (Hora:Minutos):</label>
       <input type="time" id="horas_lolo" required>
-      <br>
       <label for="horas_limpiesa">Horas Limpieza (Hora:Minutos):</label>
       <input type="time" id="horas_limpiesa" required>
-      <br>
-      <button type="button" id="btn-calcular">Calcular</button>
-      <br><br>
+      <button type="button" id="btn-calcular">Calcular</button><br><br>
       <label for="pago_lolo">Pago Lolo:</label>
       <input type="number" id="pago_lolo" readonly>
-      <br>
       <label for="pago_limpiesa">Pago Limpieza:</label>
       <input type="number" id="pago_limpiesa" readonly>
-      <br>
       <label for="total">Total del Día:</label>
       <input type="number" id="total" readonly>
-      <br>
       <label for="procedimiento">Procedimiento:</label>
       <textarea id="procedimiento" readonly></textarea>
-      <br>
-      <button type="submit" id="btn-guardar">Guardar</button>
+      
+      <button type="submit" id="btn-guardar">
+        <span id="guardar-texto">Guardar</span>
+        <div class="spinner" id="spinner-guardar"></div>
+      </button>
     </form>
   </div>
 </body>

@@ -122,22 +122,35 @@ const iniciarsesion = async () => {
 const cargarSemanas = async () => {
   try {
     const listaContainer = document.getElementById("lista-semanas");
-    // Simular la carga de datos (o llamar a tu función real listarSemanas)
     const semanas = await listarSemanas();
     listaContainer.innerHTML = "";
 
-    // Ordenar las semanas de mayor a menor según su ID
+    // Ordenar de mayor a menor (la primera será la más reciente)
     semanas.sort((a, b) => b.id - a.id);
 
-    semanas.forEach((semana) => {
+    semanas.forEach((semana, index) => {
       const { id, data } = semana;
       const totalSemanal = data.Total_Semanal;
 
-      // Creamos un botón para cada semana
+      // Crear contenedor tipo botón
       const botonSemana = document.createElement("button");
       botonSemana.textContent = `Semana ${id} - $${totalSemanal}`;
 
-      // Al hacer clic, redirigimos a detalle_semana.html pasando el ID
+      // Si es la más reciente (primera del array), agregar distintivo
+      if (index === 0) {
+        const etiqueta = document.createElement("span");
+        etiqueta.textContent = "Sem. actual";
+        etiqueta.style.backgroundColor = "#28a745"; // verde
+        etiqueta.style.color = "#fff";
+        etiqueta.style.padding = "5px 10px";
+        etiqueta.style.borderRadius = "15px";
+        etiqueta.style.marginLeft = "10px";
+        etiqueta.style.fontSize = "0.9em";
+        etiqueta.style.verticalAlign = "middle";
+
+        botonSemana.appendChild(etiqueta);
+      }
+
       botonSemana.addEventListener("click", () => {
         window.location.href = `detalle_semana.html?semanaId=${id}`;
       });
@@ -147,7 +160,7 @@ const cargarSemanas = async () => {
   } catch (error) {
     console.error("Error al cargar las semanas:", error);
   } finally {
-    // Ocultar el spinner al finalizar la carga
     document.getElementById("loader").style.display = "none";
   }
 };
+
