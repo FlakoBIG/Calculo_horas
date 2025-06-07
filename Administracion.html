@@ -127,6 +127,13 @@
       0% { transform: rotate(0deg); }
       100% { transform: rotate(360deg); }
     }
+    #total-ganado {
+    display: block;
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.2em;
+    margin-top: 20px;
+    }
   </style>
 </head>
 <body>
@@ -143,8 +150,7 @@
       <span id="texto-agregar">Agregar Semana</span>
       <div class="spinner-mini" id="spinner-agregar"></div>
     </button>
-    
-
+    <label id="total-ganado">Total Ganado: $0</label>
     <div id="lista-semanas"></div>
   </div>
 </body>

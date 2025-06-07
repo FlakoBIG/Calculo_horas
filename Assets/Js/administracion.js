@@ -58,50 +58,57 @@ const registrarSemanaFirebase = () => {
 // Función para listar las semanas en modo administración
 const cargarSemanasAdmin = async () => {
   try {
-    // Mostrar el spinner mientras se carga la información
     document.getElementById("loader").style.display = "block";
-
     const listaContainer = document.getElementById("lista-semanas");
     const semanas = await listarSemanas();
     listaContainer.innerHTML = "";
 
-    // Ordenar de mayor a menor (la primera será la más reciente)
+    // 1) Ordenar de más reciente a más antiguo
     semanas.sort((a, b) => b.id - a.id);
 
+    // 2) Calcular total acumulado UNA sola vez
+    const labelTotal = document.getElementById("total-ganado");
+    const sumaTotal = semanas.reduce((acc, semana) => {
+      // Asegurarnos de leer el campo correcto y convertir a número
+      return acc + (Number(semana.data.Total_Semanal) || 0);
+    }, 0);
+    // 3) Mostrarlo en el label
+    labelTotal.textContent = `Total Ganado: $${sumaTotal}`;
+
+    // 4) Crear los botones de cada semana
     semanas.forEach((semana, index) => {
       const { id, data } = semana;
       const totalSemanal = data.Total_Semanal;
-      
-      // Crear un botón para cada semana
+
       const botonSemana = document.createElement("button");
       botonSemana.textContent = `Semana ${id} - $${totalSemanal}`;
-      
-      // Si es la semana más actual, agregar una etiqueta para remarcarlo
+
       if (index === 0) {
         const etiqueta = document.createElement("span");
         etiqueta.textContent = "Sem. actual";
-        etiqueta.style.backgroundColor = "#28a745"; // verde
-        etiqueta.style.color = "#fff";
-        etiqueta.style.padding = "5px 10px";
-        etiqueta.style.borderRadius = "15px";
-        etiqueta.style.marginLeft = "10px";
-        etiqueta.style.fontSize = "0.9em";
-        etiqueta.style.verticalAlign = "middle";
-
+        etiqueta.style.cssText = `
+          background-color: #28a745;
+          color: #fff;
+          padding: 5px 10px;
+          border-radius: 15px;
+          margin-left: 10px;
+          font-size: 0.9em;
+          vertical-align: middle;
+        `;
         botonSemana.appendChild(etiqueta);
       }
-      
-      // Redirigir a detalle_semana_admin.html pasando el ID de la semana como query string
+
       botonSemana.addEventListener("click", () => {
         window.location.href = `detalle_semana_admin.html?semanaId=${id}`;
       });
 
       listaContainer.appendChild(botonSemana);
     });
+
   } catch (error) {
     console.error("Error al cargar las semanas en administración:", error);
   } finally {
-    // Ocultar el spinner una vez finalizada la carga
     document.getElementById("loader").style.display = "none";
   }
 };
+
